@@ -1,14 +1,12 @@
-package ProductManager;
+package ProductController;
 
 
-import ProductManager.ProductStorage;
 import Model.Product;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
-public class ProductManager {
+public class ProductController {
 
 
     Scanner scanner = new Scanner(System.in);
@@ -50,5 +48,7 @@ while(true) {
 
         }
     }
-
+public void listarProdutos(){
+    System.out.println(ProductStorage.carregar());
+}
 }

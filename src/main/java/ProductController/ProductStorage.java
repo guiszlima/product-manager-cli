@@ -1,5 +1,4 @@
-package ProductManager;
-import Model.Product;
+package ProductController;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -69,18 +68,30 @@ public class ProductStorage {
 
 
 
-    public static List<List<Object>> carregar() {
-        List<List<Object>> produtos = new ArrayList<>();
+    public static List<HashMap<String, Object>> carregar() {
+        List<HashMap<String, Object>> produtos = new ArrayList<>();
+
         try (Reader reader = new FileReader(FILE_PATH)) {
-            Type type = new TypeToken<List<List<Object>>>() {}.getType();
-            produtos = gson.fromJson(reader, type);
-            if (produtos == null) produtos = new ArrayList<>();
+            JsonElement element = JsonParser.parseReader(reader);
+            JsonObject root = element.getAsJsonObject();
+
+            JsonArray produtosArray = root.getAsJsonArray("produtos");
+
+            Gson gson = new Gson();
+            for (JsonElement produtoElement : produtosArray) {
+                Type type = new TypeToken<HashMap<String, Object>>() {}.getType();
+                HashMap<String, Object> produto = gson.fromJson(produtoElement, type);
+                produtos.add(produto);
+            }
+
         } catch (FileNotFoundException e) {
-            // arquivo ainda não existe, retorna lista vazia
+            // Arquivo ainda não existe, retorna lista vazia
             produtos = new ArrayList<>();
         } catch (IOException e) {
             System.out.println("Erro ao carregar produtos: " + e.getMessage());
         }
+
         return produtos;
     }
+
 }

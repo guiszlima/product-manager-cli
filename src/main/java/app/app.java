@@ -1,6 +1,6 @@
 package app;
 
-import ProductManager.ProductManager;
+import ProductController.ProductController;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
@@ -46,7 +46,7 @@ public class app {
             try{
             this.mostrar();
             Scanner scanner = new Scanner(System.in);
-            ProductManager manager = new ProductManager();
+            ProductController manager = new ProductController();
 
             this.opcao = scanner.nextInt();
 
@@ -57,7 +57,7 @@ public class app {
                     break;
                 case 2:
                     System.out.println("Listar todos os produtos selecionado.");
-                    // Chamar método listarProdutos();
+                    manager.listarProdutos();
                     break;
                 case 3:
                     System.out.println("Buscar produto por ID selecionado.");
