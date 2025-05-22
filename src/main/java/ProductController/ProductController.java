@@ -4,6 +4,7 @@ package ProductController;
 import Model.Product;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class ProductController {
@@ -48,7 +49,23 @@ while(true) {
 
         }
     }
-public void listarProdutos(){
-    System.out.println(ProductStorage.carregar());
-}
+    public void listarProdutos() {
+        List<Product> produtos = ProductStorage.carregar();
+
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+            return;
+        }
+
+        for (Product produto : produtos) {
+            System.out.println("----------------------------");
+            System.out.println("ID         : " + produto.getId());
+            System.out.println("Nome        : " + produto.getNome());
+            System.out.printf("Preço      : R$ %.2f%n", produto.getPreco());
+            System.out.println("Quantidade : " + produto.getQuantidade());
+        }
+
+        System.out.println("----------------------------");
+    }
+
 }
