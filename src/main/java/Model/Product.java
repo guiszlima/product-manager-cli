@@ -24,47 +24,26 @@ public class Product {
     private static final String FILE_PATH = "produtos.json";
     // Construtor
 
-
+    public Product(String nome, double preco, int quantidade) {
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidade = quantidade;
+    }
     // Getters e Setters
     public int getId() {
         return id;
     }
 
-    public void setId() {
-        File file = new File(FILE_PATH);
-
-        if (!file.exists()) {
-            this.id = 0;
-            return;
-        }
-
-        try (FileReader reader = new FileReader(file)) {
-            JsonElement element = JsonParser.parseReader(reader);
-            JsonObject root = element.getAsJsonObject();
-            JsonArray produtosArray = root.getAsJsonArray("produtos");
-
-            if (produtosArray.isEmpty()) {
-                this.id = 0;
-                return;
-            }
-
-            JsonObject ultimoProduto = produtosArray
-                    .get(produtosArray.size() - 1)
-                    .getAsJsonObject();
-
-            if (ultimoProduto.has("id")) {
-                this.id = ultimoProduto.get("id").getAsInt() + 1;
-            } else {
-                this.id = 0; // Fallback se não houver ID no último produto
-            }
-        } catch (IOException e) {
-            System.out.println("Erro ao ler JSON: " + e.getMessage());
-            this.id = 0;
-        } catch (Exception e) {
-            System.out.println("Erro ao definir ID: " + e.getMessage());
-            this.id = 0;
-        }
+    public void setId(int id) {
+        this.id = id;
     }
+
+
+    public void setId() {
+        this.id = 0; 
+    }
+
+
 
 
 

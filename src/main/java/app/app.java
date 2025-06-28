@@ -52,24 +52,30 @@ public class app {
 
             switch (this.opcao) {
                 case 1:
-                    System.out.println("Adicionar produto selecionado.");
+                    System.out.println("Opção Escolhida: Adicionar produto selecionado.");
                     manager.adicionarProduto();
                     break;
                 case 2:
-                    System.out.println("Listar todos os produtos selecionado.");
+                    System.out.println("Opção Escolhida: Listar todos os produtos selecionado.");
                     manager.listarProdutos();
                     break;
                 case 3:
-                    System.out.println("Buscar produto por ID selecionado.");
-                    // Chamar método buscarProduto();
+                    int productId;
+                    System.out.println("Opção Escolhida: Buscar produto por ID selecionado.");
+                    manager.listarProdutos();
+
+                    manager.buscarProdutos();
+
                     break;
                 case 4:
-                    System.out.println("Atualizar produto selecionado.");
-                    // Chamar método atualizarProduto();
+                    System.out.println("Opção Escolhida: Atualizar produto selecionado.");
+                    manager.listarProdutos();
+                    manager.atualizarProduto();
                     break;
                 case 5:
-                    System.out.println("Remover produto selecionado.");
-                    // Chamar método removerProduto();
+                    System.out.println("Opção Escolhida: Remover produto selecionado.");
+                    manager.listarProdutos();
+                    manager.removerProduto();
                     break;
                 case 0:
                     System.out.println("Saindo do sistema...");

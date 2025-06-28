@@ -2,6 +2,10 @@ package ProductController;
 
 
 import Model.Product;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,25 +19,25 @@ public class ProductController {
 
 while(true) {
 
-            Product produto = new Product();
+
             ProductStorage store = new ProductStorage();
 
             System.out.print("Digite o nome do produto: ");
             String nome = scanner.nextLine();
-            produto.setNome(nome);
+
 
             System.out.print("Digite o preço do produto: ");
             double preco = scanner.nextDouble();
-            produto.setPreco(preco);
+
 
             System.out.print("Digite a quantidade em estoque: ");
             int quantidade = scanner.nextInt();
-            produto.setQuantidade(quantidade);
+    Product produto = new Product(nome,preco,quantidade);
 
 
-    HashMap<String,Object> produtoGerado = produto.geraProduto();
-    System.out.println(produto);
-            ProductStorage.salvar(produtoGerado);
+
+
+            ProductStorage.salvar(produto);
 
             // Aqui você pode salvar o produto em uma lista, ou chamar ProductStorage.salvar(lista)
 
@@ -50,14 +54,16 @@ while(true) {
         }
     }
     public void listarProdutos() {
-        List<Product> produtos = ProductStorage.carregar();
-
+        Gson gson = new Gson();
+        JsonObject root = ProductStorage.carregar();
+        JsonArray produtos = root.getAsJsonArray("produtos");
         if (produtos.isEmpty()) {
             System.out.println("Nenhum produto cadastrado.");
             return;
         }
 
-        for (Product produto : produtos) {
+        for ( JsonElement element : produtos) {
+            Product produto = gson.fromJson(element, Product.class);
             System.out.println("----------------------------");
             System.out.println("ID         : " + produto.getId());
             System.out.println("Nome        : " + produto.getNome());
@@ -67,5 +73,38 @@ while(true) {
 
         System.out.println("----------------------------");
     }
+public void buscarProdutos(){
+        int productId;
+    try{
 
+        System.out.print("Digite o id: ");
+        productId = scanner.nextInt();
+        ProductStorage.procuraProduto(productId);
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
+}
+public void atualizarProduto(){
+    int productId;
+    try{
+
+        System.out.print("Digite o id: ");
+        productId = scanner.nextInt();
+        ProductStorage.updateProduto(productId);
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
+}
+public void removerProduto(){
+    int productId;
+    try{
+
+        System.out.print("Digite o id: ");
+        productId = scanner.nextInt();
+        ProductStorage.deleteProduto(productId);
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
+
+}
 }
