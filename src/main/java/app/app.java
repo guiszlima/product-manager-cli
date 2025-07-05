@@ -7,7 +7,7 @@ import java.util.InputMismatchException;
 public class app {
 
     private int opcao;
-
+    private int escolha;
     private    String[] opcoesMenu = {
             "1️⃣  Adicionar produto",
             "2️⃣  Listar todos os produtos",
@@ -19,7 +19,7 @@ public class app {
 
 
 
-    public void mostrar() {
+    public int mostrar() {
 
 
 
@@ -36,7 +36,8 @@ public class app {
         Scanner scanner = new Scanner(System.in); // cria o scanner
         System.out.print("Escolha uma opção: "); // mostra mensagem
 
-
+        this.opcao = scanner.nextInt();
+        return this.opcao;
 
     }
     public void iniciar() {
@@ -44,13 +45,14 @@ public class app {
 
         while (true) {
             try{
-            this.mostrar();
-            Scanner scanner = new Scanner(System.in);
+
+            this.escolha = this.mostrar();
+
             ProductController manager = new ProductController();
 
-            this.opcao = scanner.nextInt();
 
-            switch (this.opcao) {
+
+            switch (this.escolha) {
                 case 1:
                     System.out.println("Opção Escolhida: Adicionar produto selecionado.");
                     manager.adicionarProduto();
