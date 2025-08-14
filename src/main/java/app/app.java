@@ -62,7 +62,6 @@ public class app {
                     manager.listarProdutos();
                     break;
                 case 3:
-                    int productId;
                     System.out.println("Opção Escolhida: Buscar produto por ID selecionado.");
                     manager.listarProdutos();
 
